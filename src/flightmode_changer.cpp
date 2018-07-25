@@ -1,9 +1,9 @@
 #include <iostream>
 #include "ros/ros.h"
-#include "mavros/SetMode.h"
-#include "mavros/State.h"
-#include "mavros/OverrideRCIn.h"
-#include "mavros/RCIn.h"
+#include "mavros_msgs/SetMode.h"
+#include "mavros_msgs/State.h"
+#include "mavros_msgs/OverrideRCIn.h"
+#include "mavros_msgs/RCIn.h"
 #include "std_msgs/Int16.h"
 #include "std_msgs/Float64.h"
 #include <unistd.h>
@@ -11,7 +11,7 @@
 // flightmode_changer receive from pid_controller
 void flightmodeReceiver(const std_msgs::Int16& fm);
 void extmodeReceiver(const std_msgs::Int16& ext_mode_recv);
-void rcinReceiver(const mavros::RCIn& rc_in_data);
+void rcinReceiver(const mavros_msgs::RCIn& rc_in_data);
 void altReceiver(const std_msgs::Float64& alt_msg);
 int flightmode_data = 0;
 int ext_mode = 0;
@@ -26,8 +26,8 @@ int main(int argc, char **argv)
 	ros::Subscriber ext_mode_sub = n.subscribe("/krti15/ext_mode", 100, extmodeReceiver);
 	ros::Subscriber rc_in_sub = n.subscribe("/mavros/rc/in", 100, rcinReceiver);
 	ros::Subscriber sub_rel_alt = n.subscribe("/mavros/global_position/rel_alt", 1, altReceiver );
-	ros::ServiceClient client = n.serviceClient<mavros::SetMode>("/mavros/set_mode");
-	mavros::SetMode flight;
+	ros::ServiceClient client = n.serviceClient<mavros_msgs::SetMode>("/mavros/set_mode");
+	mavros_msgs::SetMode flight;
     	
 	bool success;
 	int last_flightmode_data;
@@ -184,7 +184,7 @@ void flightmodeReceiver(const std_msgs::Int16& fm){
 	flightmode_data = fm.data;
 }
 
-void rcinReceiver(const mavros::RCIn& rc_in_data){
+void rcinReceiver(const mavros_msgs::RCIn& rc_in_data){
 	
 	rc_in_channel_7 = rc_in_data.channels[6];
 }

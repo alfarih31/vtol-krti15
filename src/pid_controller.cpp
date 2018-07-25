@@ -6,7 +6,7 @@
 #include "geometry_msgs/TwistStamped.h"
 #include "geometry_msgs/PoseStamped.h"
 #include "std_msgs/Int16.h"
-#include "mavros/State.h"
+#include "mavros_msgs/State.h"
 #include "sensor_msgs/Imu.h"
 #include "std_msgs/Float64.h"
 #include "std_msgs/Int16.h"
@@ -20,7 +20,7 @@ void pidYReceiver(const pid::controller_msg& y_msg);
 void cvReceiver(const geometry_msgs::Point& cv_msg); 
 void posReceiver(const geometry_msgs::PoseStamped& local_msg);
 void fmReceiver(const std_msgs::Int16& fm_recv);
-void stateReceiver(const mavros::State& state_recv);
+void stateReceiver(const mavros_msgs::State& state_recv);
 void altReceiver(const std_msgs::Float64& alt_msg);
 void quadTimer(const ros::TimerEvent&);
 void pidConvert();
@@ -516,7 +516,7 @@ void fmReceiver(const std_msgs::Int16& fm_recv){
 	fm_data = fm_recv.data;
 }
 
-void stateReceiver(const mavros::State& state_recv){
+void stateReceiver(const mavros_msgs::State& state_recv){
 	
 	state_char = state_recv.mode[0];
 }
